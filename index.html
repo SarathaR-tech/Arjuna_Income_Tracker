@@ -1,3 +1,6 @@
+
+raw
+Income tracker · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +25,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .header h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.5px}
 .header h1 .w{color:var(--wolt)}.header h1 .m{color:var(--mail)}
 .header p{font-size:13px;color:var(--text2);margin-top:3px}
-
+ 
 /* GS Box */
 .gs-box{background:rgba(0,194,255,0.07);border:1px solid rgba(0,194,255,0.22);border-radius:var(--radius);padding:.9rem 1.1rem;margin-bottom:1.5rem}
 .gs-title{font-size:11px;font-weight:600;color:var(--wolt);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
@@ -30,12 +33,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .gs-row input{flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 11px;border-radius:8px;font-size:12px;outline:none;font-family:'DM Sans',sans-serif}
 .gs-btn{background:var(--wolt);color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
 .gs-msg{font-size:12px;margin-top:5px;min-height:15px}
-
+ 
 /* Month bar */
 .month-bar{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
 .month-bar select{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;cursor:pointer}
 .month-label{font-size:13px;color:var(--text2)}
-
+ 
 /* Summary top cards */
 .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
 .sum-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.1rem}
@@ -47,7 +50,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sum-value{font-family:'Syne',sans-serif;font-size:22px;font-weight:700}
 .sc-wolt .sum-value{color:var(--wolt)}.sc-mail .sum-value{color:var(--mail)}.sc-total .sum-value{color:var(--green)}
 .sum-sub{font-size:11px;color:var(--text2);margin-top:3px}
-
+ 
 /* Breakdown panels */
 .breakdown{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1rem}
 .breakdown.bd-wolt{border-color:var(--wolt-border)}
@@ -61,21 +64,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .bdi-label{font-size:10px;color:var(--text2);margin-bottom:4px}
 .bdi-val{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
 .bdi-val.green{color:var(--green)}.bdi-val.red{color:var(--red)}.bdi-val.wolt{color:var(--wolt)}.bdi-val.mail{color:var(--mail)}.bdi-val.yellow{color:var(--yellow)}
-
+ 
 /* Payout period rows */
 .period-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .period-card{background:var(--bg3);border-radius:8px;padding:8px 10px;border:1px solid var(--border)}
 .period-label{font-size:10px;color:var(--text2);margin-bottom:3px}
 .period-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:600}
 .period-val.wolt{color:var(--wolt)}.period-val.mail{color:var(--mail)}
-
+ 
 /* Tabs */
 .tabs{display:flex;gap:4px;margin-bottom:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:4px}
 .tab{flex:1;padding:9px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--text2);border-radius:7px;transition:all .2s;font-family:'DM Sans',sans-serif}
 .tab.tw.active{background:var(--wolt);color:#000;font-weight:600}
 .tab.tm.active{background:var(--mail);color:#000;font-weight:600}
 .tab.th.active{background:var(--bg3);color:var(--text)}
-
+ 
 /* Forms */
 .form-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
 .fc-wolt{border-color:var(--wolt-border)}.fc-mail{border-color:var(--mail-border)}
@@ -89,7 +92,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .field input::placeholder{color:var(--text2);opacity:.6}
 .fc-wolt .field input:focus,.fc-wolt .field select:focus{border-color:var(--wolt)}
 .fc-mail .field input:focus,.fc-mail .field select:focus{border-color:var(--mail)}
-
+ 
 /* Preview boxes */
 .preview-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:13px}
 .prow{display:flex;justify-content:space-between;padding:3px 0;color:var(--text2)}
@@ -98,7 +101,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .prow.highlight-mail{color:var(--mail);font-weight:600;font-size:14px}
 .prow.vat-row{color:var(--yellow)}
 .prow.total-row{color:var(--green);font-weight:700;font-size:15px}
-
+ 
 .btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:1.2rem}
 .btn{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .15s}
 .btn:hover{color:var(--text);border-color:var(--text2)}
@@ -106,7 +109,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .bm{background:var(--mail);color:#000;border-color:var(--mail);font-weight:600}.bm:hover{opacity:.85;color:#000}
 .add-msg{font-size:12px;margin-top:8px;min-height:18px;color:var(--green)}
 .add-msg.err{color:var(--red)}
-
+ 
 /* Export */
 .export-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1.5rem}
 .export-title{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
@@ -115,7 +118,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .exp-month{background:var(--green);color:#000}.exp-month:hover{opacity:.85}
 .exp-all{background:var(--bg3);color:var(--text);border:1px solid var(--border)}.exp-all:hover{border-color:var(--green);color:var(--green)}
 .exp-msg{font-size:12px;margin-top:6px;color:var(--green);min-height:16px}
-
+ 
 /* History */
 .hist-sec{margin-bottom:1.5rem}
 .hist-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
@@ -130,7 +133,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .del-btn{background:none;border:none;cursor:pointer;color:var(--text2);padding:4px 7px;border-radius:6px;font-size:14px;transition:all .15s}
 .del-btn:hover{color:var(--red);background:var(--red-dim)}
 .empty{text-align:center;padding:2rem;color:var(--text2);font-size:14px}
-
+ 
 /* Loading overlay */
 .loading-overlay{position:fixed;inset:0;background:rgba(15,17,23,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px}
 .loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--wolt);border-radius:50%;animation:spin .8s linear infinite}
@@ -143,33 +146,33 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </head>
 <body>
 <div class="app">
-
+ 
 <!-- Loading Overlay -->
 <div class="loading-overlay" id="loading-overlay" style="display:none">
   <div class="loading-spinner"></div>
   <div class="loading-text">Loading data from Google Sheets...</div>
 </div>
-
+ 
 <div class="header">
   <h1><span class="w">Wolt</span> &amp; <span class="m">Mail</span> Income Tracker</h1>
   <p>Auto-calculate earnings · VAT · Deductions · Monthly totals</p>
 </div>
-
+ 
 <!-- Google Sheets -->
 <div class="gs-box">
   <div class="gs-title">&#x1F517; Google Sheets · Live Database</div>
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
     <div class="gs-msg" id="gs-msg" style="margin-top:0">&#x23F3; Connecting...</div>
-    <button class="refresh-btn" onclick="loadFromSheets()">&#x21BB; Refresh Data</button>
+    <button class="refresh-btn" onclick="window.loadData()">&#x21BB; Refresh Data</button>
   </div>
 </div>
-
+ 
 <!-- Month -->
 <div class="month-bar">
   <span class="month-label">Viewing:</span>
   <select id="month-select" onchange="render()"></select>
 </div>
-
+ 
 <!-- Summary -->
 <div class="summary">
   <div class="sum-card sc-wolt">
@@ -188,7 +191,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="sum-sub">total income</div>
   </div>
 </div>
-
+ 
 <!-- Wolt Breakdown -->
 <div class="breakdown bd-wolt">
   <div class="bd-title">&#x1F6F5; Wolt Monthly Breakdown</div>
@@ -202,7 +205,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="period-card"><div class="period-label">2nd Payout (16–31)</div><div class="period-val wolt" id="bw-p2">&#x20AC;0.00</div></div>
   </div>
 </div>
-
+ 
 <!-- Mail Breakdown -->
 <div class="breakdown bd-mail" style="margin-bottom:1.5rem">
   <div class="bd-title">&#x1F4EC; Mail Monthly Breakdown</div>
@@ -227,7 +230,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="period-card"><div class="period-label">2nd Payout (16–31)</div><div class="period-val mail" id="bm-p2">&#x20AC;0.00</div></div>
   </div>
 </div>
-
+ 
 <!-- Export -->
 <div class="export-box">
   <div class="export-title">&#x1F4E5; Export to Excel</div>
@@ -237,14 +240,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <div class="exp-msg" id="exp-msg"></div>
 </div>
-
+ 
 <!-- Tabs -->
 <div class="tabs">
   <button class="tab tw active" onclick="switchTab('wolt',this)">&#x1F6F5; Add Wolt</button>
   <button class="tab tm" onclick="switchTab('mail',this)">&#x1F4EC; Add Mail</button>
   <button class="tab th" onclick="switchTab('hist',this)">&#x1F4CB; History</button>
 </div>
-
+ 
 <!-- Wolt Form -->
 <div id="tab-wolt">
   <div class="form-card fc-wolt">
@@ -274,7 +277,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="add-msg" id="w-msg"></div>
   </div>
 </div>
-
+ 
 <!-- Mail Form -->
 <div id="tab-mail" style="display:none">
   <div class="form-card fc-mail">
@@ -306,7 +309,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="add-msg" id="m-msg"></div>
   </div>
 </div>
-
+ 
 <!-- History -->
 <div id="tab-hist" style="display:none">
   <div class="hist-sec">
@@ -318,13 +321,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div id="mail-hist"></div>
   </div>
 </div>
-
+ 
 </div>
 <!-- Firebase SDKs -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+ 
   const firebaseConfig = {
     apiKey: "AIzaSyDrKjiPaWEyE2imLKfigyFh3AAygj1b-Nw",
     authDomain: "income-tracker-aef60.firebaseapp.com",
@@ -334,16 +337,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     messagingSenderId: "453857960668",
     appId: "1:453857960668:web:5e9940a1b1ee60e7d6ca19"
   };
-
+ 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-
+ 
   var VAT = 0.255;
   var DATA = {wolt:[], mail:[]};
-
+ 
   function fmt(n){ return '€'+parseFloat(n||0).toFixed(2); }
   function fmtN(n){ return parseFloat(n||0).toFixed(2); }
-
+ 
   function parseTime(val){
     var s = String(val||'').trim();
     if(!s) return 0;
@@ -353,18 +356,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     if(mStr.length===1) mStr = mStr+'0';
     return h*60 + parseInt(mStr||0);
   }
-
+ 
   function showStatus(msg, color){
     var el = document.getElementById('gs-msg');
     el.style.color = color||'#2ECC8A';
     el.textContent = msg;
   }
-
+ 
   // Load data from Firebase realtime
-  function loadData(){
+  window.loadData = function loadData(){
     showStatus('⏳ Connecting to Firebase...', '#FFD166');
     document.getElementById('loading-overlay').style.display = 'flex';
-
+ 
     onValue(ref(db, 'income'), function(snapshot){
       DATA = {wolt:[], mail:[]};
       var val = snapshot.val();
@@ -392,7 +395,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       showStatus('⚠ Connection failed: ' + error.message, '#FF5C5C');
     });
   }
-
+ 
   // Wolt preview
   window.previewWolt = function(){
     var inc = parseFloat(document.getElementById('w-income').value)||0;
@@ -406,7 +409,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     document.getElementById('wp-ded').textContent='-'+fmt(ded);
     document.getElementById('wp-net').textContent=fmt(net);
   };
-
+ 
   // Add Wolt entry
   window.addWolt = function(){
     var date=document.getElementById('w-date').value;
@@ -426,7 +429,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       msg.className='add-msg err'; msg.textContent='⚠ Error: '+e.message;
     });
   };
-
+ 
   window.clearWolt = function(){
     document.getElementById('w-income').value='';
     document.getElementById('w-tips').value='';
@@ -434,7 +437,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     document.getElementById('w-msg').textContent='';
     document.getElementById('w-date').value=new Date().toISOString().split('T')[0];
   };
-
+ 
   // Mail preview
   window.previewMail = function(){
     var tv=document.getElementById('m-mins').value;
@@ -451,7 +454,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     document.getElementById('mp-vat').textContent=fmt(vat);
     document.getElementById('mp-total').textContent=fmt(total);
   };
-
+ 
   // Add Mail entry
   window.addMail = function(){
     var date=document.getElementById('m-date').value;
@@ -473,7 +476,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       msg.className='add-msg err'; msg.textContent='⚠ Error: '+e.message;
     });
   };
-
+ 
   window.clearMail = function(){
     document.getElementById('m-route').value='';
     document.getElementById('m-mins').value='';
@@ -482,7 +485,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     document.getElementById('m-msg').textContent='';
     document.getElementById('m-date').value=new Date().toISOString().split('T')[0];
   };
-
+ 
   // Delete entry
   window.deleteEntry = function(type, firebaseKey){
     if(!confirm('Delete this entry?')) return;
@@ -490,20 +493,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       alert('Delete failed: '+e.message);
     });
   };
-
+ 
   // Render
   function render(){
     var month=document.getElementById('month-select').value;
     if(!month) return;
     var wolt=DATA.wolt.filter(function(e){return e.date&&e.date.startsWith(month);});
     var mail=DATA.mail.filter(function(e){return e.date&&e.date.startsWith(month);});
-
+ 
     var wGross=wolt.reduce(function(a,e){return a+(+e.gross||0);},0);
     var wDed=wolt.reduce(function(a,e){return a+(+e.deduct||0);},0);
     var wNet=wolt.reduce(function(a,e){return a+(+e.net||0);},0);
     var wP1=wolt.filter(function(e){return e.period==='1st';}).reduce(function(a,e){return a+(+e.net||0);},0);
     var wP2=wolt.filter(function(e){return e.period==='2nd';}).reduce(function(a,e){return a+(+e.net||0);},0);
-
+ 
     var mMins=mail.reduce(function(a,e){return a+(+e.totalMins||0);},0);
     var mKm=mail.reduce(function(a,e){return a+(+e.km||0);},0);
     var mExcl=mail.reduce(function(a,e){return a+(+e.exclVat||0);},0);
@@ -511,19 +514,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     var mTotal=mail.reduce(function(a,e){return a+(+e.total||0);},0);
     var mP1=mail.filter(function(e){return e.period==='1st';}).reduce(function(a,e){return a+(+e.total||0);},0);
     var mP2=mail.filter(function(e){return e.period==='2nd';}).reduce(function(a,e){return a+(+e.total||0);},0);
-
+ 
     document.getElementById('s-wolt').textContent=fmt(wNet);
     document.getElementById('s-wolt-sub').textContent=wolt.length+' entries · '+fmt(wDed)+' deducted';
     document.getElementById('s-mail').textContent=fmt(mTotal);
     document.getElementById('s-mail-sub').textContent=mail.length+' routes · '+fmtN(mKm)+' km';
     document.getElementById('s-total').textContent=fmt(wNet+mTotal);
-
+ 
     document.getElementById('bw-gross').textContent=fmt(wGross);
     document.getElementById('bw-holder').textContent=fmt(wDed);
     document.getElementById('bw-net').textContent=fmt(wNet);
     document.getElementById('bw-p1').textContent=fmt(wP1);
     document.getElementById('bw-p2').textContent=fmt(wP2);
-
+ 
     document.getElementById('bm-routes').textContent=mail.length;
     document.getElementById('bm-mins').textContent=mMins+' min';
     document.getElementById('bm-km').textContent=fmtN(mKm)+' km';
@@ -532,7 +535,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     document.getElementById('bm-total').textContent=fmt(mTotal);
     document.getElementById('bm-p1').textContent=fmt(mP1);
     document.getElementById('bm-p2').textContent=fmt(mP2);
-
+ 
     // Wolt history
     var wh=document.getElementById('wolt-hist');
     if(!wolt.length){wh.innerHTML='<div class="empty">No Wolt entries this month.</div>';}
@@ -543,10 +546,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           +'<div class="entry-main"><div class="entry-title">Income: '+fmt(e.income)+' &middot; Tips: '+fmt(e.tips)+'</div>'
           +'<div class="entry-sub">Gross: '+fmt(e.gross)+' &middot; Holder -'+fmt(e.deduct)+'</div></div>'
           +'<div class="entry-amt ea-wolt">'+fmt(e.net)+'</div>'
-          +'<button class="del-btn" onclick="deleteEntry('wolt',''+e.firebaseKey+'')">&#x1F5D1;</button></div>';
+          +'<button class="del-btn" onclick="deleteEntry(\'wolt\',\''+e.firebaseKey+'\')">&#x1F5D1;</button></div>';
       }).join('');
     }
-
+ 
     // Mail history
     var mh=document.getElementById('mail-hist');
     if(!mail.length){mh.innerHTML='<div class="empty">No mail entries this month.</div>';}
@@ -557,11 +560,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           +'<div class="entry-main"><div class="entry-title">'+e.route+' &middot; '+e.timeInput+' ('+e.totalMins+' min) &middot; '+fmtN(e.km)+' km</div>'
           +'<div class="entry-sub">Excl. VAT: '+fmt(e.exclVat)+' &middot; VAT: '+fmt(e.vat)+'</div></div>'
           +'<div class="entry-amt ea-mail">'+fmt(e.total)+'</div>'
-          +'<button class="del-btn" onclick="deleteEntry('mail',''+e.firebaseKey+'')">&#x1F5D1;</button></div>';
+          +'<button class="del-btn" onclick="deleteEntry(\'mail\',\''+e.firebaseKey+'\')">&#x1F5D1;</button></div>';
       }).join('');
     }
   }
-
+ 
   // Export Excel
   window.exportExcel = function(mode){
     var msg=document.getElementById('exp-msg');
@@ -619,14 +622,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     XLSX.writeFile(wb,'income-'+label+'.xlsx');
     msg.style.color='#2ECC8A'; msg.textContent='✓ Downloaded: income-'+label+'.xlsx';
   };
-
+ 
   // Tabs & months
   window.switchTab = function(name,el){
     ['wolt','mail','hist'].forEach(function(t){document.getElementById('tab-'+t).style.display=t===name?'block':'none';});
     document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
     el.classList.add('active');
   };
-
+ 
   function initMonths(){
     var sel=document.getElementById('month-select');
     var now=new Date(), arr=[];
@@ -638,7 +641,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     sel.innerHTML=arr.join('');
     sel.onchange = render;
   }
-
+ 
   // Init
   initMonths();
   document.getElementById('w-date').value=new Date().toISOString().split('T')[0];
