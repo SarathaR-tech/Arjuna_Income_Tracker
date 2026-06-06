@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0F1117;--bg2:#1A1D27;--bg3:#22263A;--border:#2E3248;
+  --text:#F0F2FF;--text2:#8B92B8;
+  --wolt:#00C2FF;--wolt-dim:rgba(0,194,255,0.12);--wolt-border:rgba(0,194,255,0.3);
+  --mail:#FF8C42;--mail-dim:rgba(255,140,66,0.12);--mail-border:rgba(255,140,66,0.3);
+  --green:#2ECC8A;--green-dim:rgba(46,204,138,0.12);
+  --red:#FF5C5C;--red-dim:rgba(255,92,92,0.1);
+  --yellow:#FFD166;--radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{max-width:800px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.header{margin-bottom:1.75rem}
+.header h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.5px}
+.header h1 .w{color:var(--wolt)}.header h1 .m{color:var(--mail)}
+.header p{font-size:13px;color:var(--text2);margin-top:3px}
+
+/* GS Box */
+.gs-box{background:rgba(0,194,255,0.07);border:1px solid rgba(0,194,255,0.22);border-radius:var(--radius);padding:.9rem 1.1rem;margin-bottom:1.5rem}
+.gs-title{font-size:11px;font-weight:600;color:var(--wolt);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.gs-row{display:flex;gap:8px;flex-wrap:wrap}
+.gs-row input{flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 11px;border-radius:8px;font-size:12px;outline:none;font-family:'DM Sans',sans-serif}
+.gs-btn{background:var(--wolt);color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.gs-msg{font-size:12px;margin-top:5px;min-height:15px}
+
+/* Month bar */
+.month-bar{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.month-bar select{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;cursor:pointer}
+.month-label{font-size:13px;color:var(--text2)}
+
+/* Summary top cards */
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
+.sum-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.1rem}
+.sum-card.sc-wolt{border-color:var(--wolt-border);background:var(--wolt-dim)}
+.sum-card.sc-mail{border-color:var(--mail-border);background:var(--mail-dim)}
+.sum-card.sc-total{border-color:rgba(46,204,138,0.3);background:var(--green-dim)}
+.sum-label{font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.sc-wolt .sum-label{color:var(--wolt)}.sc-mail .sum-label{color:var(--mail)}.sc-total .sum-label{color:var(--green)}
+.sum-value{font-family:'Syne',sans-serif;font-size:22px;font-weight:700}
+.sc-wolt .sum-value{color:var(--wolt)}.sc-mail .sum-value{color:var(--mail)}.sc-total .sum-value{color:var(--green)}
+.sum-sub{font-size:11px;color:var(--text2);margin-top:3px}
+
+/* Breakdown panels */
+.breakdown{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1rem}
+.breakdown.bd-wolt{border-color:var(--wolt-border)}
+.breakdown.bd-mail{border-color:var(--mail-border)}
+.bd-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.bd-wolt .bd-title{color:var(--wolt)}.bd-mail .bd-title{color:var(--mail)}
+.bd-grid{display:grid;gap:8px}
+.bd-wolt .bd-grid{grid-template-columns:repeat(3,1fr)}
+.bd-mail .bd-grid{grid-template-columns:repeat(4,1fr)}
+.bdi{text-align:center;background:var(--bg3);border-radius:8px;padding:8px 6px}
+.bdi-label{font-size:10px;color:var(--text2);margin-bottom:4px}
+.bdi-val{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+.bdi-val.green{color:var(--green)}.bdi-val.red{color:var(--red)}.bdi-val.wolt{color:var(--wolt)}.bdi-val.mail{color:var(--mail)}.bdi-val.yellow{color:var(--yellow)}
+
+/* Payout period rows */
+.period-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.period-card{background:var(--bg3);border-radius:8px;padding:8px 10px;border:1px solid var(--border)}
+.period-label{font-size:10px;color:var(--text2);margin-bottom:3px}
+.period-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:600}
+.period-val.wolt{color:var(--wolt)}.period-val.mail{color:var(--mail)}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:4px}
+.tab{flex:1;padding:9px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--text2);border-radius:7px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.tab.tw.active{background:var(--wolt);color:#000;font-weight:600}
+.tab.tm.active{background:var(--mail);color:#000;font-weight:600}
+.tab.th.active{background:var(--bg3);color:var(--text)}
+
+/* Forms */
+.form-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.fc-wolt{border-color:var(--wolt-border)}.fc-mail{border-color:var(--mail-border)}
+.form-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:600;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dw{background:var(--wolt)}.dm{background:var(--mail)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ff{grid-column:1/-1}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:5px;font-weight:500}
+.field input,.field select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .15s}
+.field input::placeholder{color:var(--text2);opacity:.6}
+.fc-wolt .field input:focus,.fc-wolt .field select:focus{border-color:var(--wolt)}
+.fc-mail .field input:focus,.fc-mail .field select:focus{border-color:var(--mail)}
+
+/* Preview boxes */
+.preview-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:13px}
+.prow{display:flex;justify-content:space-between;padding:3px 0;color:var(--text2)}
+.prow.sep{border-top:1px solid var(--border);margin-top:4px;padding-top:6px}
+.prow.highlight{color:var(--wolt);font-weight:600;font-size:14px}
+.prow.highlight-mail{color:var(--mail);font-weight:600;font-size:14px}
+.prow.vat-row{color:var(--yellow)}
+.prow.total-row{color:var(--green);font-weight:700;font-size:15px}
+
+.btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:1.2rem}
+.btn{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn:hover{color:var(--text);border-color:var(--text2)}
+.bw{background:var(--wolt);color:#000;border-color:var(--wolt);font-weight:600}.bw:hover{opacity:.85;color:#000}
+.bm{background:var(--mail);color:#000;border-color:var(--mail);font-weight:600}.bm:hover{opacity:.85;color:#000}
+.add-msg{font-size:12px;margin-top:8px;min-height:18px;color:var(--green)}
+.add-msg.err{color:var(--red)}
+
+/* Export */
+.export-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1.5rem}
+.export-title{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.export-row{display:flex;gap:8px;flex-wrap:wrap}
+.exp-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .15s}
+.exp-month{background:var(--green);color:#000}.exp-month:hover{opacity:.85}
+.exp-all{background:var(--bg3);color:var(--text);border:1px solid var(--border)}.exp-all:hover{border-color:var(--green);color:var(--green)}
+.exp-msg{font-size:12px;margin-top:6px;color:var(--green);min-height:16px}
+
+/* History */
+.hist-sec{margin-bottom:1.5rem}
+.hist-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.entry{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.ew{border-left:3px solid var(--wolt)}.em{border-left:3px solid var(--mail)}
+.entry-date{font-size:12px;color:var(--text2);min-width:76px}
+.entry-main{flex:1}
+.entry-title{font-size:13px;font-weight:500;color:var(--text)}
+.entry-sub{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.5}
+.entry-amt{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+.ea-wolt{color:var(--wolt)}.ea-mail{color:var(--mail)}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--text2);padding:4px 7px;border-radius:6px;font-size:14px;transition:all .15s}
+.del-btn:hover{color:var(--red);background:var(--red-dim)}
+.empty{text-align:center;padding:2rem;color:var(--text2);font-size:14px}
+
+
+/* Login Screen */
+.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;gap:20px}
+.login-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;text-align:center;max-width:360px;width:90%}
+.login-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.login-title .w{color:var(--wolt)}.login-title .m{color:var(--mail)}
+.login-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+.login-btn{background:white;color:#333;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:10px;margin:0 auto;font-family:'DM Sans',sans-serif;transition:all .15s}
+.login-btn:hover{background:#f0f0f0;transform:translateY(-1px)}
+.login-error{font-size:12px;color:var(--red);margin-top:12px;min-height:16px}
+.user-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;margin-bottom:1.5rem;font-size:12px}
+.user-email{color:var(--text2)}
+.signout-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.signout-btn:hover{border-color:var(--red);color:var(--red)}
+/* Loading overlay */
+.loading-overlay{position:fixed;inset:0;background:rgba(15,17,23,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--wolt);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text2)}
+.refresh-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:7px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:8px}
+.refresh-btn:hover{border-color:var(--wolt);color:var(--wolt)}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<!-- Login Screen -->
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-title"><span class="w">Wolt</span> &amp; <span class="m">Mail</span></div>
+    <div class="login-title" style="font-size:16px;margin-bottom:4px">Income Tracker</div>
+    <div class="login-sub">&#x1F512; Private app &mdash; Enter password</div>
+    <input type="password" id="pw-input" placeholder="Enter password"
+      style="width:100%;background:#1A1D27;border:1px solid #2E3248;color:#F0F2FF;padding:11px 14px;border-radius:10px;font-size:15px;outline:none;margin-bottom:12px;font-family:'DM Sans',sans-serif;text-align:center;letter-spacing:2px"
+      onkeydown="if(event.key==='Enter') signIn()" />
+    <button class="login-btn" id="login-btn" onclick="signIn()"
+      style="width:100%;justify-content:center;background:#1D9E75;color:#fff;padding:12px">
+      &#x1F513; Enter
+    </button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+<div id="main-app" style="display:none">
+<div class="app">
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loading-overlay" style="display:none">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading data from Google Sheets...</div>
+</div>
+
+<div class="header">
+  <h1><span class="w">Wolt</span> &amp; <span class="m">Mail</span> Income Tracker</h1>
+  <p>Auto-calculate earnings · VAT · Deductions · Monthly totals</p>
+</div>
+
+<!-- User bar -->
+<div class="user-bar">
+  <span>&#x1F464; <span id="user-email"></span></span>
+  <button class="signout-btn" onclick="signOutUser()">Sign out</button>
+</div>
+
+<!-- Google Sheets -->
+<div class="gs-box">
+  <div class="gs-title">&#x1F517; Google Sheets · Live Database</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <div class="gs-msg" id="gs-msg" style="margin-top:0">&#x23F3; Connecting...</div>
+    <button class="refresh-btn" onclick="window.loadData()">&#x21BB; Refresh Data</button>
+  </div>
+</div>
+
+<!-- Month -->
+<div class="month-bar">
+  <span class="month-label">Viewing:</span>
+  <select id="month-select" onchange="render()"></select>
+</div>
+
+<!-- Summary -->
+<div class="summary">
+  <div class="sum-card sc-wolt">
+    <div class="sum-label">Wolt Net</div>
+    <div class="sum-value" id="s-wolt">&#x20AC;0.00</div>
+    <div class="sum-sub" id="s-wolt-sub">after 15% deduction</div>
+  </div>
+  <div class="sum-card sc-mail">
+    <div class="sum-label">Mail Total (incl. VAT)</div>
+    <div class="sum-value" id="s-mail">&#x20AC;0.00</div>
+    <div class="sum-sub" id="s-mail-sub">0 routes</div>
+  </div>
+  <div class="sum-card sc-total">
+    <div class="sum-label">Combined</div>
+    <div class="sum-value" id="s-total">&#x20AC;0.00</div>
+    <div class="sum-sub">total income</div>
+  </div>
+</div>
+
+<!-- Wolt Breakdown -->
+<div class="breakdown bd-wolt">
+  <div class="bd-title">&#x1F6F5; Wolt Monthly Breakdown</div>
+  <div class="bd-grid">
+    <div class="bdi"><div class="bdi-label">Gross (incl. tips)</div><div class="bdi-val wolt" id="bw-gross">&#x20AC;0.00</div></div>
+    <div class="bdi"><div class="bdi-label">To holder (15%)</div><div class="bdi-val red" id="bw-holder">&#x20AC;0.00</div></div>
+    <div class="bdi"><div class="bdi-label">Your Net</div><div class="bdi-val green" id="bw-net">&#x20AC;0.00</div></div>
+  </div>
+  <div class="period-row">
+    <div class="period-card"><div class="period-label">1st Payout (1–15)</div><div class="period-val wolt" id="bw-p1">&#x20AC;0.00</div></div>
+    <div class="period-card"><div class="period-label">2nd Payout (16–31)</div><div class="period-val wolt" id="bw-p2">&#x20AC;0.00</div></div>
+  </div>
+</div>
+
+<!-- Mail Breakdown -->
+<div class="breakdown bd-mail" style="margin-bottom:1.5rem">
+  <div class="bd-title">&#x1F4EC; Mail Monthly Breakdown</div>
+  <div class="bd-grid">
+    <div class="bdi"><div class="bdi-label">Total Routes</div><div class="bdi-val" id="bm-routes">0</div></div>
+    <div class="bdi"><div class="bdi-label">Total Minutes</div><div class="bdi-val mail" id="bm-mins">0</div></div>
+    <div class="bdi"><div class="bdi-label">Total KM</div><div class="bdi-val mail" id="bm-km">0</div></div>
+    <div class="bdi"><div class="bdi-label">Excl. VAT</div><div class="bdi-val" id="bm-excl">&#x20AC;0.00</div></div>
+  </div>
+  <div class="period-row">
+    <div class="period-card">
+      <div class="period-label">VAT (25.5%)</div>
+      <div class="period-val" style="color:var(--yellow)" id="bm-vat">&#x20AC;0.00</div>
+    </div>
+    <div class="period-card">
+      <div class="period-label">Total incl. VAT</div>
+      <div class="period-val mail" id="bm-total">&#x20AC;0.00</div>
+    </div>
+  </div>
+  <div class="period-row">
+    <div class="period-card"><div class="period-label">1st Payout (1–15)</div><div class="period-val mail" id="bm-p1">&#x20AC;0.00</div></div>
+    <div class="period-card"><div class="period-label">2nd Payout (16–31)</div><div class="period-val mail" id="bm-p2">&#x20AC;0.00</div></div>
+  </div>
+</div>
+
+<!-- Export -->
+<div class="export-box">
+  <div class="export-title">&#x1F4E5; Export to Excel</div>
+  <div class="export-row">
+    <button class="exp-btn exp-month" onclick="exportExcel('month')">&#x1F4C5; Export This Month</button>
+    <button class="exp-btn exp-all" onclick="exportExcel('all')">&#x1F4BE; Export All Data</button>
+  </div>
+  <div class="exp-msg" id="exp-msg"></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab tw active" onclick="switchTab('wolt',this)">&#x1F6F5; Add Wolt</button>
+  <button class="tab tm" onclick="switchTab('mail',this)">&#x1F4EC; Add Mail</button>
+  <button class="tab th" onclick="switchTab('hist',this)">&#x1F4CB; History</button>
+</div>
+
+<!-- Wolt Form -->
+<div id="tab-wolt">
+  <div class="form-card fc-wolt">
+    <div class="form-title"><span class="dot dw"></span> Wolt Daily Entry</div>
+    <div class="form-grid">
+      <div class="field"><label>Date</label><input type="date" id="w-date"/></div>
+      <div class="field"><label>Payout Period</label>
+        <select id="w-period">
+          <option value="1st">1st payout (1–15)</option>
+          <option value="2nd">2nd payout (16–31)</option>
+        </select>
+      </div>
+      <div class="field"><label>Daily Income (&#x20AC;)</label><input type="number" id="w-income" placeholder="0.00" step="0.01" min="0" oninput="previewWolt()"/></div>
+      <div class="field"><label>Tips (&#x20AC;)</label><input type="number" id="w-tips" placeholder="0.00" step="0.01" min="0" oninput="previewWolt()"/></div>
+    </div>
+    <div id="w-preview" style="display:none" class="preview-box">
+      <div class="prow"><span>Income</span><span id="wp-inc">&#x20AC;0.00</span></div>
+      <div class="prow"><span>Tips</span><span id="wp-tips">&#x20AC;0.00</span></div>
+      <div class="prow sep"><span>Gross</span><span id="wp-gross">&#x20AC;0.00</span></div>
+      <div class="prow"><span>Account holder (15%)</span><span id="wp-ded" style="color:var(--red)">-&#x20AC;0.00</span></div>
+      <div class="prow highlight sep"><span>Your Net</span><span id="wp-net">&#x20AC;0.00</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="clearWolt()">Clear</button>
+      <button class="btn bw" onclick="addWolt()">+ Add Entry</button>
+    </div>
+    <div class="add-msg" id="w-msg"></div>
+  </div>
+</div>
+
+<!-- Mail Form -->
+<div id="tab-mail" style="display:none">
+  <div class="form-card fc-mail">
+    <div class="form-title"><span class="dot dm"></span> Mail Delivery Entry</div>
+    <div class="form-grid">
+      <div class="field"><label>Date</label><input type="date" id="m-date"/></div>
+      <div class="field"><label>Payout Period</label>
+        <select id="m-period">
+          <option value="1st">1st payout (1–15)</option>
+          <option value="2nd">2nd payout (16–31)</option>
+        </select>
+      </div>
+      <div class="field"><label>Route Name</label><input type="text" id="m-route" placeholder="e.g. Route A"/></div>
+      <div class="field"><label>Time (HH.MM format)</label><input type="text" id="m-mins" placeholder="e.g. 04.43" oninput="previewMail()"/></div>
+      <div class="field"><label>Distance (km)</label><input type="number" id="m-km" placeholder="e.g. 25.5" step="0.01" min="0" oninput="previewMail()"/></div>
+    </div>
+    <div id="m-preview" style="display:none" class="preview-box">
+      <div class="prow"><span id="mp-time-label">Minutes</span><span id="mp-mins">0 mins</span></div>
+      <div class="prow"><span>Time pay (mins &#xD7; &#x20AC;0.18)</span><span id="mp-tpay">&#x20AC;0.00</span></div>
+      <div class="prow"><span>Distance pay (km &#xD7; &#x20AC;0.55)</span><span id="mp-dpay">&#x20AC;0.00</span></div>
+      <div class="prow sep"><span>Excl. VAT</span><span id="mp-excl">&#x20AC;0.00</span></div>
+      <div class="prow vat-row"><span>VAT (25.5%)</span><span id="mp-vat">&#x20AC;0.00</span></div>
+      <div class="prow highlight-mail sep"><span>Total incl. VAT</span><span id="mp-total">&#x20AC;0.00</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="clearMail()">Clear</button>
+      <button class="btn bm" onclick="addMail()">+ Add Entry</button>
+    </div>
+    <div class="add-msg" id="m-msg"></div>
+  </div>
+</div>
+
+<!-- History -->
+<div id="tab-hist" style="display:none">
+  <div class="hist-sec">
+    <div class="hist-title">&#x1F6F5; Wolt Entries</div>
+    <div id="wolt-hist"></div>
+  </div>
+  <div class="hist-sec">
+    <div class="hist-title">&#x1F4EC; Mail Entries</div>
+    <div id="mail-hist"></div>
+  </div>
+</div>
+
+</div>
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyDrKjiPaWEyE2imLKfigyFh3AAygj1b-Nw",
+    authDomain: "income-tracker-aef60.firebaseapp.com",
+    databaseURL: "https://income-tracker-aef60-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "income-tracker-aef60",
+    storageBucket: "income-tracker-aef60.firebasestorage.app",
+    messagingSenderId: "453857960668",
+    appId: "1:453857960668:web:5e9940a1b1ee60e7d6ca19"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  var VAT = 0.255;
+  var DATA = {wolt:[],mail:[]};
+
+  function fmt(n){ return '\u20AC'+parseFloat(n||0).toFixed(2); }
+  function fmtN(n){ return parseFloat(n||0).toFixed(2); }
+  function parseTime(val){
+    var s=String(val||'').trim(); if(!s) return 0;
+    var p=s.split('.'),h=parseInt(p[0])||0,ms=p[1]||'0';
+    if(ms.length===1) ms=ms+'0';
+    return h*60+parseInt(ms||0);
+  }
+  function showStatus(msg,color){ var el=document.getElementById('gs-msg'); el.style.color=color||'#2ECC8A'; el.textContent=msg; }
+
+  var PASSWORD = 'wolt2026';
+
+  function showLogin(){ document.getElementById('login-screen').style.display='flex'; document.getElementById('main-app').style.display='none'; }
+  function showApp(){ document.getElementById('login-screen').style.display='none'; document.getElementById('main-app').style.display='block'; document.getElementById('user-email').textContent='Income Tracker'; loadData(); }
+
+  if(sessionStorage.getItem('it_auth')==='ok'){ showApp(); } else { showLogin(); }
+
+  window.signIn = function(){
+    var pw = document.getElementById('pw-input').value;
+    var err = document.getElementById('login-error');
+    if(pw === PASSWORD){
+      sessionStorage.setItem('it_auth','ok');
+      showApp();
+    } else {
+      err.textContent = '\u26A0 Wrong password. Try again.';
+      document.getElementById('pw-input').value='';
+    }
+  };
+
+  window.signOutUser = function(){
+    if(confirm('Sign out?')){ sessionStorage.removeItem('it_auth'); showLogin(); }
+  };
+
+    function loadData(){
+    showStatus('\u23F3 Connecting...','#FFD166');
+    document.getElementById('loading-overlay').style.display='flex';
+    onValue(ref(db,'income'),function(snapshot){
+      DATA={wolt:[],mail:[]};
+      var val=snapshot.val();
+      if(val){
+        if(val.wolt) Object.keys(val.wolt).forEach(function(k){ var e=val.wolt[k]; e.firebaseKey=k; DATA.wolt.push(e); });
+        if(val.mail) Object.keys(val.mail).forEach(function(k){ var e=val.mail[k]; e.firebaseKey=k; DATA.mail.push(e); });
+      }
+      document.getElementById('loading-overlay').style.display='none';
+      showStatus('\u2713 Live \u00B7 '+(DATA.wolt.length+DATA.mail.length)+' entries','#2ECC8A');
+      render();
+    },function(error){ document.getElementById('loading-overlay').style.display='none'; showStatus('\u26A0 '+error.message,'#FF5C5C'); });
+  }
+
+  window.previewWolt=function(){ var inc=parseFloat(document.getElementById('w-income').value)||0,tips=parseFloat(document.getElementById('w-tips').value)||0; if(inc===0&&tips===0){document.getElementById('w-preview').style.display='none';return;} var gross=inc+tips,ded=gross*0.15,net=gross-ded; document.getElementById('w-preview').style.display='block'; document.getElementById('wp-inc').textContent=fmt(inc); document.getElementById('wp-tips').textContent=fmt(tips); document.getElementById('wp-gross').textContent=fmt(gross); document.getElementById('wp-ded').textContent='-'+fmt(ded); document.getElementById('wp-net').textContent=fmt(net); };
+  window.addWolt=function(){ var date=document.getElementById('w-date').value,inc=parseFloat(document.getElementById('w-income').value),tips=parseFloat(document.getElementById('w-tips').value)||0,period=document.getElementById('w-period').value,msg=document.getElementById('w-msg'); if(!date){msg.className='add-msg err';msg.textContent='\u26A0 Select a date.';return;} if(!inc||inc<=0){msg.className='add-msg err';msg.textContent='\u26A0 Enter income.';return;} var gross=inc+tips,ded=gross*0.15,net=gross-ded; msg.className='add-msg';msg.textContent='\u23F3 Saving...'; push(ref(db,'income/wolt'),{date:date,period:period,income:inc,tips:tips,gross:gross,deduct:ded,net:net}).then(function(){msg.textContent='\u2713 Saved!';window.clearWolt();}).catch(function(e){msg.className='add-msg err';msg.textContent='\u26A0 '+e.message;}); };
+  window.clearWolt=function(){ document.getElementById('w-income').value=''; document.getElementById('w-tips').value=''; document.getElementById('w-preview').style.display='none'; document.getElementById('w-msg').textContent=''; document.getElementById('w-date').value=new Date().toISOString().split('T')[0]; };
+  window.previewMail=function(){ var tv=document.getElementById('m-mins').value,km=parseFloat(document.getElementById('m-km').value)||0,mins=parseTime(tv); if(mins===0&&km===0){document.getElementById('m-preview').style.display='none';return;} var tpay=mins*0.18,dpay=km*0.55,excl=tpay+dpay,vat=excl*VAT,total=excl+vat; document.getElementById('m-preview').style.display='block'; document.getElementById('mp-time-label').textContent=tv+' \u2192 '+mins+' min'; document.getElementById('mp-mins').textContent=mins+' mins'; document.getElementById('mp-tpay').textContent=fmt(tpay); document.getElementById('mp-dpay').textContent=fmt(dpay); document.getElementById('mp-excl').textContent=fmt(excl); document.getElementById('mp-vat').textContent=fmt(vat); document.getElementById('mp-total').textContent=fmt(total); };
+  window.addMail=function(){ var date=document.getElementById('m-date').value,period=document.getElementById('m-period').value,route=document.getElementById('m-route').value.trim()||'Route',tv=document.getElementById('m-mins').value,km=parseFloat(document.getElementById('m-km').value),msg=document.getElementById('m-msg'); if(!date){msg.className='add-msg err';msg.textContent='\u26A0 Select a date.';return;} if(!tv||!km){msg.className='add-msg err';msg.textContent='\u26A0 Enter time and distance.';return;} var mins=parseTime(tv),tpay=mins*0.18,dpay=km*0.55,excl=tpay+dpay,vat=excl*VAT,total=excl+vat; msg.className='add-msg';msg.textContent='\u23F3 Saving...'; push(ref(db,'income/mail'),{date:date,period:period,route:route,timeInput:tv,totalMins:mins,km:km,timePay:tpay,distPay:dpay,exclVat:excl,vat:vat,total:total}).then(function(){msg.textContent='\u2713 Saved!';window.clearMail();}).catch(function(e){msg.className='add-msg err';msg.textContent='\u26A0 '+e.message;}); };
+  window.clearMail=function(){ document.getElementById('m-route').value=''; document.getElementById('m-mins').value=''; document.getElementById('m-km').value=''; document.getElementById('m-preview').style.display='none'; document.getElementById('m-msg').textContent=''; document.getElementById('m-date').value=new Date().toISOString().split('T')[0]; };
+  window.deleteEntry=function(type,firebaseKey){ if(!confirm('Delete?')) return; remove(ref(db,'income/'+type+'/'+firebaseKey)).catch(function(e){alert('Error: '+e.message);}); };
+
+  function render(){
+    var month=document.getElementById('month-select').value; if(!month) return;
+    var wolt=DATA.wolt.filter(function(e){return e.date&&e.date.startsWith(month);}),mail=DATA.mail.filter(function(e){return e.date&&e.date.startsWith(month);});
+    var wGross=wolt.reduce(function(a,e){return a+(+e.gross||0);},0),wDed=wolt.reduce(function(a,e){return a+(+e.deduct||0);},0),wNet=wolt.reduce(function(a,e){return a+(+e.net||0);},0);
+    var wP1=wolt.filter(function(e){return e.period==='1st';}).reduce(function(a,e){return a+(+e.net||0);},0),wP2=wolt.filter(function(e){return e.period==='2nd';}).reduce(function(a,e){return a+(+e.net||0);},0);
+    var mMins=mail.reduce(function(a,e){return a+(+e.totalMins||0);},0),mKm=mail.reduce(function(a,e){return a+(+e.km||0);},0),mExcl=mail.reduce(function(a,e){return a+(+e.exclVat||0);},0),mVat=mail.reduce(function(a,e){return a+(+e.vat||0);},0),mTotal=mail.reduce(function(a,e){return a+(+e.total||0);},0);
+    var mP1=mail.filter(function(e){return e.period==='1st';}).reduce(function(a,e){return a+(+e.total||0);},0),mP2=mail.filter(function(e){return e.period==='2nd';}).reduce(function(a,e){return a+(+e.total||0);},0);
+    document.getElementById('s-wolt').textContent=fmt(wNet); document.getElementById('s-wolt-sub').textContent=wolt.length+' entries \u00B7 '+fmt(wDed)+' deducted';
+    document.getElementById('s-mail').textContent=fmt(mTotal); document.getElementById('s-mail-sub').textContent=mail.length+' routes \u00B7 '+fmtN(mKm)+' km';
+    document.getElementById('s-total').textContent=fmt(wNet+mTotal);
+    document.getElementById('bw-gross').textContent=fmt(wGross); document.getElementById('bw-holder').textContent=fmt(wDed); document.getElementById('bw-net').textContent=fmt(wNet);
+    document.getElementById('bw-p1').textContent=fmt(wP1); document.getElementById('bw-p2').textContent=fmt(wP2);
+    document.getElementById('bm-routes').textContent=mail.length; document.getElementById('bm-mins').textContent=mMins+' min'; document.getElementById('bm-km').textContent=fmtN(mKm)+' km';
+    document.getElementById('bm-excl').textContent=fmt(mExcl); document.getElementById('bm-vat').textContent=fmt(mVat); document.getElementById('bm-total').textContent=fmt(mTotal);
+    document.getElementById('bm-p1').textContent=fmt(mP1); document.getElementById('bm-p2').textContent=fmt(mP2);
+    var wh=document.getElementById('wolt-hist');
+    if(!wolt.length){wh.innerHTML='<div class="empty">No Wolt entries this month.</div>';}
+    else{wh.innerHTML=wolt.slice().sort(function(a,b){return b.date.localeCompare(a.date);}).map(function(e){return '<div class="entry ew"><div class="entry-date">'+e.date+'<br><span style="font-size:10px;color:var(--wolt)">'+e.period+' payout</span></div><div class="entry-main"><div class="entry-title">Income: '+fmt(e.income)+' &middot; Tips: '+fmt(e.tips)+'</div><div class="entry-sub">Gross: '+fmt(e.gross)+' &middot; Holder -'+fmt(e.deduct)+'</div></div><div class="entry-amt ea-wolt">'+fmt(e.net)+'</div><button class="del-btn" onclick="deleteEntry(\'wolt\',\''+e.firebaseKey+'\')">&#x1F5D1;</button></div>';}).join('');}
+    var mh=document.getElementById('mail-hist');
+    if(!mail.length){mh.innerHTML='<div class="empty">No mail entries this month.</div>';}
+    else{mh.innerHTML=mail.slice().sort(function(a,b){return b.date.localeCompare(a.date);}).map(function(e){return '<div class="entry em"><div class="entry-date">'+e.date+'<br><span style="font-size:10px;color:var(--mail)">'+e.period+' payout</span></div><div class="entry-main"><div class="entry-title">'+e.route+' &middot; '+e.timeInput+' ('+e.totalMins+' min) &middot; '+fmtN(e.km)+' km</div><div class="entry-sub">Excl. VAT: '+fmt(e.exclVat)+' &middot; VAT: '+fmt(e.vat)+'</div></div><div class="entry-amt ea-mail">'+fmt(e.total)+'</div><button class="del-btn" onclick="deleteEntry(\'mail\',\''+e.firebaseKey+'\')">&#x1F5D1;</button></div>';}).join('');}
+  }
+
+  window.exportExcel=function(mode){ var msg=document.getElementById('exp-msg'),month=document.getElementById('month-select').value; var wD=mode==='month'?DATA.wolt.filter(function(e){return e.date&&e.date.startsWith(month);}):DATA.wolt.slice(),mD=mode==='month'?DATA.mail.filter(function(e){return e.date&&e.date.startsWith(month);}):DATA.mail.slice(); if(!wD.length&&!mD.length){msg.style.color='#FF5C5C';msg.textContent='No data.';return;} var wb=XLSX.utils.book_new(),wR=[['Date','Period','Income','Tips','Gross','Deduction 15%','Net']]; wD.sort(function(a,b){return a.date.localeCompare(b.date);}).forEach(function(e){wR.push([e.date,e.period,+parseFloat(e.income).toFixed(2),+parseFloat(e.tips).toFixed(2),+parseFloat(e.gross).toFixed(2),+parseFloat(e.deduct).toFixed(2),+parseFloat(e.net).toFixed(2)]);}); if(wD.length){wR.push([]);wR.push(['TOTAL','',+wD.reduce(function(a,e){return a+(+e.income||0);},0).toFixed(2),+wD.reduce(function(a,e){return a+(+e.tips||0);},0).toFixed(2),+wD.reduce(function(a,e){return a+(+e.gross||0);},0).toFixed(2),+wD.reduce(function(a,e){return a+(+e.deduct||0);},0).toFixed(2),+wD.reduce(function(a,e){return a+(+e.net||0);},0).toFixed(2)]);} XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(wR),'Wolt'); var mR=[['Date','Period','Route','Time','Minutes','KM','Time Pay','Dist Pay','Excl VAT','VAT 25.5%','Total']]; mD.sort(function(a,b){return a.date.localeCompare(b.date);}).forEach(function(e){mR.push([e.date,e.period,e.route,e.timeInput,+e.totalMins,+parseFloat(e.km).toFixed(2),+parseFloat(e.timePay).toFixed(2),+parseFloat(e.distPay).toFixed(2),+parseFloat(e.exclVat).toFixed(2),+parseFloat(e.vat).toFixed(2),+parseFloat(e.total).toFixed(2)]);}); if(mD.length){mR.push([]);mR.push(['TOTAL','','','',mD.reduce(function(a,e){return a+(+e.totalMins||0);},0),+mD.reduce(function(a,e){return a+(+e.km||0);},0).toFixed(2),+mD.reduce(function(a,e){return a+(+e.timePay||0);},0).toFixed(2),+mD.reduce(function(a,e){return a+(+e.distPay||0);},0).toFixed(2),+mD.reduce(function(a,e){return a+(+e.exclVat||0);},0).toFixed(2),+mD.reduce(function(a,e){return a+(+e.vat||0);},0).toFixed(2),+mD.reduce(function(a,e){return a+(+e.total||0);},0).toFixed(2)]);} XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(mR),'Mail'); var wNet=wD.reduce(function(a,e){return a+(+e.net||0);},0),mTot=mD.reduce(function(a,e){return a+(+e.total||0);},0); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Summary',mode==='month'?month:'All'],[],['','Wolt','Mail','Combined'],['Net',+wNet.toFixed(2),+mTot.toFixed(2),+(wNet+mTot).toFixed(2)],[],['Mail Stats'],['Minutes',mD.reduce(function(a,e){return a+(+e.totalMins||0);},0)],['KM',+mD.reduce(function(a,e){return a+(+e.km||0);},0).toFixed(2)]]),'Summary'); var label=mode==='month'?month:'all'; XLSX.writeFile(wb,'income-'+label+'.xlsx'); msg.style.color='#2ECC8A';msg.textContent='\u2713 Downloaded!'; };
+  window.switchTab=function(name,el){ ['wolt','mail','hist'].forEach(function(t){document.getElementById('tab-'+t).style.display=t===name?'block':'none';}); document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');}); el.classList.add('active'); };
+  function initMonths(){ var sel=document.getElementById('month-select'),now=new Date(),arr=[]; for(var i=0;i<12;i++){var d=new Date(now.getFullYear(),now.getMonth()-i,1),val=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');arr.push('<option value="'+val+'">'+d.toLocaleString('default',{month:'long',year:'numeric'})+'</option>');} sel.innerHTML=arr.join(''); sel.onchange=render; }
+  initMonths();
+  document.getElementById('w-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('m-date').value=new Date().toISOString().split('T')[0];
+</script>
+
+</div>
+</body>
+</html>
